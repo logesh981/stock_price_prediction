@@ -1,0 +1,78 @@
+
+services:
+
+  mc:
+    image: minio/mc
+    platform: linux/amd64
+    depends_on:
+      - minio
+    container_name: mc2
+    env_file:
+      - .env
+    entrypoint: >
+      /bin/sh -c "
+      chmod +x /tmp/wait-for-it.sh && 
+      /tmp/wait-for-it.sh minio:9000 &&
+      /usr/bin/mc alias set minio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} &&
+      /usr/bin/mc mb minio/my-stock-data-bucket;
+      exit 0;
+      "
+    volumes:
+      - ./wait-for-it.sh:/tmp/wait-for-it.sh
+    networks:
+      - stock-market
+
+  minio:
+    restart: always
+    image: minio/minio
+    platform: linux/amd64
+    container_name: minio2
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ':9001' --address ':9000'
+    environment:
+      - MINIO_ROOT_USER=${MINIO_USERNAME}
+      - MINIO_ROOT_PASSWORD=${MINIO_PASSWORD}
+    volumes:
+      - minio_data:/data
+    networks:
+      - stock-market
+
+  producer:
+    build: ./producer
+    env_file: .env
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    networks:
+      - stock-market
+    
+    depends_on:
+      - minio
+
+  consumer:
+    build: ./consumer
+    
+    env_file: .env
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    networks:
+      - stock-market
+    depends_on:
+      - minio
+
+volumes:
+  minio_data:
+
+networks:
+  stock-market:
+    driver: bridge
+
