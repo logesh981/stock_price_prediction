@@ -1,0 +1,9 @@
+stock_dbt_project:          # Must match 'profile' in dbt_project.yml
+  target: dev               # The environment we're using (like 'dev' or 'prod')
+  outputs:
+    dev:                    # This is the 'dev' target
+      type: duckdb          # dbt adapter to use
+      path: duckdb.db  # Local path to your DuckDB file
+      extensions:
+        - json           # So DuckDB can read Parquet files
+        - httpfs            # So DuckDB can fetch from HTTP/S3 URLs (like MinIO)

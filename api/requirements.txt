@@ -1,0 +1,8 @@
+pydantic
+fastapi
+pandas
+uvicorn
+mlflow
+boto3
+python-dotenv
+xgboost==1.7.6

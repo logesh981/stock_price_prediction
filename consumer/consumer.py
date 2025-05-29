@@ -13,8 +13,7 @@ from confluent_kafka import Consumer, KafkaError
 from dotenv import load_dotenv
 import boto3
 
-# Load environment variables
-load_dotenv(dotenv_path="../.env")
+
 
 # Logging setup
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +27,17 @@ s3_prefix = "stocks"
 kafka_config = {
     "bootstrap.servers": os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"),
     "group.id": "stock-consumer-group",
-    "auto.offset.reset": "earliest"
+    "auto.offset.reset": "earliest",
+
+    # ✅ Recommended settings for Confluent Cloud
+    "socket.keepalive.enable": True,
+    "session.timeout.ms": 45000,        # 45 seconds
+    "request.timeout.ms": 60000,         # 60 seconds
+    "heartbeat.interval.ms": 15000,      # 15 seconds
+    "enable.auto.commit": True,          # Optional: good for simple consumer groups
+    "max.poll.interval.ms": 300000,      # 5 mins (safety for slow processing)
+
+    "enable.partition.eof": False,       
 }
 
 # Add security config if needed
@@ -50,8 +59,8 @@ class StockConsumer:
 
         self.s3 = boto3.client(
             "s3",
-            aws_access_key_id=os.getenv("MINIO_ACCESS_KEY"),
-            aws_secret_access_key=os.getenv("MINIO_SECRET_KEY"),
+            aws_access_key_id=os.getenv("MINIO_USERNAME"),
+            aws_secret_access_key=os.getenv("MINIO_PASSWORD"),
             endpoint_url="http://minio:9000",  # or your Docker hostname
             config=boto3.session.Config(signature_version='s3v4'),
             region_name="us-east-1"

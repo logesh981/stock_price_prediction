@@ -1,0 +1,1 @@
+SET s3_endpoint='http://localhost:9000';

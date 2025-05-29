@@ -1,0 +1,1 @@
+python scripts/generate_stock_model.py

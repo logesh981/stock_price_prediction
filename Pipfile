@@ -6,9 +6,21 @@ name = "pip_conf_index_global"
 [packages]
 yfinance = "*"
 dbt-duckdb = "*"
+boto3 = "*"
+python-dotenv = "*"
+duckdb = "*"
+pandas = "*"
+scikit-learn = "*"
+mlflow = "*"
+xgboost = "*"
+fastapi = "*"
+pydantic = "*"
+uvicorn = "*"
 
 [dev-packages]
 fpdf = "*"
+ipykernel = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.12"

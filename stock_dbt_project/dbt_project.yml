@@ -23,9 +23,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
 models:
   stock_dbt_project:
     +materialized: table  # Default for all models under models/
@@ -33,3 +30,19 @@ models:
       +materialized: table
     marts:
       +materialized: table
+on-run-start:
+  - "INSTALL httpfs;"
+  - "INSTALL json;"
+  - "LOAD httpfs;"
+  - "LOAD json;"
+  - "SET s3_endpoint='http://localhost:9000';"
+  - "SET s3_access_key_id='minioadmin';"
+  - "SET s3_secret_access_key='minioadmin';"
+  - "SET s3_region='us-east-1';"
+  - "SET s3_use_ssl=false;" 
+  - "SET s3_url_style='path';"
+
+
+
+
+ 

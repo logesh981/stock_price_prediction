@@ -1,1 +1,5 @@
 .env
+dev.duckdb
+Notebooks/mlruns/
+Notebooks/ec2-3-89-152-136.compute-1.amazonaws.com/
+Notebooks/**/models/
