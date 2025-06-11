@@ -45,7 +45,7 @@ resource "aws_instance" "stock_api" {
   iam_instance_profile        = aws_iam_instance_profile.ec2_instance_profile.name
   user_data = templatefile("${path.module}/user_data/startup.sh.tpl", {
     region  = var.region,
-    ecr_uri = var.ecr_uri
+    ecr_uri = var.ecr_uri,
     mlflow_uri  = var.mlflow_uri
   })
 
