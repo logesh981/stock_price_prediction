@@ -21,6 +21,7 @@ uvicorn = "*"
 fpdf = "*"
 ipykernel = "*"
 seaborn = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.12"
