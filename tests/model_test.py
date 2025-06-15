@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from predict import app
+from api.predict import app
 
 client = TestClient(app)
 
