@@ -24,7 +24,7 @@ class StockInput(BaseModel):
         return v
 
 
-model = load_production_model()
+model = load_production_model("StockPricePredictor")
 model_service = ModelService(model)
 
 app = FastAPI()
