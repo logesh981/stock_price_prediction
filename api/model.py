@@ -26,6 +26,7 @@ class ModelService:
         pred = self.model.predict(pd_features)
         return pred
     
+    
 def load_production_model(model_name="StockPricePredictor"):
     tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
     mlflow.set_tracking_uri(tracking_uri)
