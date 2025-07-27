@@ -18,11 +18,11 @@ jobs:
           python-version: 3.12
 
       - name: Install dependencies
-        working-directory: "**"
+        working-directory: .
         run: pip install pipenv && pipenv install --dev
 
       - name: Run Unit tests
-        working-directory: "**"
+        working-directory: .
         run: pipenv run pytest tests/
 
 
@@ -34,11 +34,12 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
       - name: Integration Test
-        working-directory: '/integraton_test'
+        working-directory: 'integration_test'
         run: |
           . run.sh
 
   tf-plan:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
