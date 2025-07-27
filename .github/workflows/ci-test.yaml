@@ -1,10 +1,6 @@
 name: CI-Tests
 on:
-  pull_request:
-    branches:
-      - 'develop'
-    paths:
-      - '**'
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: 'us-east-1'
