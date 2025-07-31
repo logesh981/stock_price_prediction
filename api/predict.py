@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator,ValidationInfo
 from api.model import ModelService, load_production_model
 
 # Defining the input data schema with validation
@@ -17,10 +17,10 @@ class StockInput(BaseModel):
     rolling_volatility_10: float = Field(ge=0, description="Volatility must be non-negative")
 
     @field_validator('low')
-    def low_must_be_less_than_high(cls, v, values):
-        high = values.get('high')
-        if high is not None and v > high:
-            raise ValueError('Low price cannot be greater than High price')
+    def low_must_be_less_than_high(cls, v, info: ValidationInfo):
+        high = info.data.get('high')
+        if high is not None and v >= high:
+            raise ValueError("Low must be less than High")
         return v
 
 

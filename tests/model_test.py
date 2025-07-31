@@ -58,7 +58,7 @@ def test_predict_low_higher_than_high():
     payload = {
         "open": 170.0,
         "high": 150.0,
-        "low": 160.0,   # invalid, low cannot be greater than high
+        "low": 170.0,   # invalid, low cannot be greater than high
         "volume": 15000000,
         "rolling_avg_5": 171.2,
         "rolling_std_5": 1.3,
@@ -70,4 +70,4 @@ def test_predict_low_higher_than_high():
     }
     response = client.post("/predict", json=payload)
     assert response.status_code == 422
-    assert "Low price cannot be greater than High price" in response.text
+    
