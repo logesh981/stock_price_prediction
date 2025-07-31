@@ -30,6 +30,9 @@ class ModelService:
     
 def load_production_model(model_name="StockPricePredictor"):
     tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
+
+    if not tracking_uri:
+        raise RuntimeError("MLFLOW_TRACKING_URI environment variable is not set")
     mlflow.set_tracking_uri(tracking_uri)
     logging.info(f"Using MLflow tracking URI: {tracking_uri}")
 
