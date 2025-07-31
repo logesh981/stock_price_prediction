@@ -41,6 +41,8 @@ jobs:
   tf-plan:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_public_key_content: ${{ secrets.DEPLOY_KEY_PUB}}
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials

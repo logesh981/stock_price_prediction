@@ -18,9 +18,9 @@ variable "key_name" {
   default     = "deploy_key"
 }
 
-variable "public_key_path" {
-  description = "Path to your public SSH key"
-  default     = "../.ssh/deploy_key.pub"
+variable "public_key_content" {
+  description = "public SSH key"
+  type        = string
 }
 
 variable "ecr_uri" {
