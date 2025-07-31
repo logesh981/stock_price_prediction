@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import mlflow
 import boto3
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,8 +31,11 @@ class ModelService:
 def load_production_model(model_name="StockPricePredictor"):
     tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
     mlflow.set_tracking_uri(tracking_uri)
+    logging.info(f"Using MLflow tracking URI: {tracking_uri}")
 
     model_uri = f"models:/{model_name}/Production"
+
+    logging.info(f"Loading model from: {model_uri}")
     model = mlflow.xgboost.load_model(model_uri)
     return model
 
