@@ -41,7 +41,7 @@ jobs:
       - name: Integration Test
         working-directory: 'integration_test'
         run: |
-          . run.sh
+          ./integration_test/run.sh
 
   tf-plan:
     needs: test
