@@ -38,6 +38,11 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
+      - name: Make sure script is executable
+        run: chmod +x ./integration_test/run.sh
+
+      - name: List directory for debugging
+        run: ls -R
       - name: Integration Test
         working-directory: 'integration_test'
         run: |
