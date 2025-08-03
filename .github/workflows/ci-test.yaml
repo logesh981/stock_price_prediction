@@ -44,7 +44,7 @@ jobs:
       - name: List directory for debugging
         run: ls -R
       - name: Integration Test
-        working-directory: 'integration_test'
+        working-directory: .
         run: ./integration_test/run.sh
 
   tf-plan:
