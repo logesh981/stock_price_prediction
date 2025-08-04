@@ -43,6 +43,14 @@ jobs:
 
       - name: List directory for debugging
         run: ls -R
+      - name: Create .env file from GitHub Secrets
+        run: |
+          echo "MLFLOW_TRACKING_URI=${{ secrets.MLFLOW_TRACKING_URI }}" > .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "DEPLOY_KEY_PUB=${{ secrets.DEPLOY_KEY_PUB }}" >> .env
+          
+
       - name: Integration Test
         working-directory: .
         run: ./integration_test/run.sh
