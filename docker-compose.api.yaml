@@ -1,7 +1,7 @@
 
 services:
   stock_api:
-    build: ./app
+    build: ./api
     container_name: stock_api
     image: stock_api:latest
     ports:
