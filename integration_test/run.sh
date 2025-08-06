@@ -4,9 +4,9 @@ set -euo pipefail
 # Navigate to the directory containing the script
 cd "$(dirname "$0")"
 
-# Tag Docker image with timestamp
-LOCAL_TAG=$(date +"%Y-%m-%d-%H-%M")
-export LOCAL_IMAGE_NAME="stock_api:${LOCAL_TAG}"
+# # Tag Docker image with timestamp
+# LOCAL_TAG=$(date +"%Y-%m-%d-%H-%M")
+# export LOCAL_IMAGE_NAME="stock_api:${LOCAL_TAG}"
 
 
 echo "[INFO] Starting Docker Compose services"
