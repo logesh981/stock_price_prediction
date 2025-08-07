@@ -15,7 +15,7 @@ json_data ={
         "volume_ratio": 1.05,
         "rolling_volatility_10": 1.2
 }
-url = 'http://127.0.0.1:8080/predict'
+url = 'http://127.0.0.1:8000/predict'
 response = requests.post(url, json_data, verify=False, timeout=10)
 
 
