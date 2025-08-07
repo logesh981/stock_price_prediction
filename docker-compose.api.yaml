@@ -1,13 +1,10 @@
-
+    
 services:
   stock_api:
-    build: ./api
-    container_name: stock_api
-    image: stock_api:latest
+    build:
+      context: .                      
+      dockerfile: api/Dockerfile
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
-      - .:/app
-    env_file:
-      - .env
-    
+      - .:/app                        
