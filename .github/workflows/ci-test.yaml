@@ -56,7 +56,7 @@ jobs:
         run: ./integration_test/run.sh
 
   tf-plan:
-    needs: test
+    
     runs-on: ubuntu-latest
     env:
       TF_VAR_public_key_content: ${{ secrets.DEPLOY_KEY_PUB}}
