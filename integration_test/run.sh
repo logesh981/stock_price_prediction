@@ -10,7 +10,8 @@ cd "$(dirname "$0")"
 
 
 echo "[INFO] Starting Docker Compose services"
-docker-compose -f ../docker-compose.api.yaml up -d
+docker compose -f ../docker-compose.api.yaml up --build -d
+
 
 echo "[INFO] Running integration tests"
 if pipenv run python test_docker.py; then
