@@ -6,3 +6,13 @@ Notebooks/**/models/
 .ssh/deploy_key
 .ssh/deploy_key.pub
 .terraform
+
+
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+*.auto.tfvars
