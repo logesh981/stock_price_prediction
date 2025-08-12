@@ -1,5 +1,10 @@
 FROM python:3.10-slim
 
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONIOENCODING=UTF-8
+
+ENV PYTHONPATH=/app
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

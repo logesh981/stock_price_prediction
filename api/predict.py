@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field, field_validator,ValidationInfo
-from api.model import ModelService, load_production_model
+try:
+    from model import ModelService, load_production_model
+except ImportError:
+    from api.model import ModelService, load_production_model
 
 # Defining the input data schema with validation
 class StockInput(BaseModel):

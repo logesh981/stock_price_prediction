@@ -16,7 +16,7 @@ json_data ={
         "rolling_volatility_10": 1.2
 }
 url = 'http://127.0.0.1:8000/predict'
-response = requests.post(url, json_data, verify=False, timeout=10)
+response = requests.post(url,json=json_data, verify=False, timeout=10)
 
 
 assert 1==1
