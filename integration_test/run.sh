@@ -1,25 +1,24 @@
-#!/usr/bin/env bash
+
 set -euo pipefail
-
-# Navigate to the directory containing the script
 cd "$(dirname "$0")"
+COMPOSE_FILE="../docker-compose.api.yaml"
+BASE="http://127.0.0.1:8000"
 
-# # Tag Docker image with timestamp
-# LOCAL_TAG=$(date +"%Y-%m-%d-%H-%M")
-# export LOCAL_IMAGE_NAME="stock_api:${LOCAL_TAG}"
+echo "[INFO] Up"
+docker compose -f "$COMPOSE_FILE" up --build -d
 
+echo "[INFO] Waiting for API..."
+for i in {1..40}; do
+  if curl -fsS "$BASE/docs" >/dev/null 2>&1; then echo "[OK] ready"; break; fi
+  sleep 0.5
+  [[ $i -eq 40 ]] && { echo "[ERROR] not ready"; docker compose -f "$COMPOSE_FILE" logs --no-color; docker compose -f "$COMPOSE_FILE" down; exit 1; }
+done
 
-echo "[INFO] Starting Docker Compose services"
-docker compose -f ../docker-compose.api.yaml up --build -d
-
-
-echo "[INFO] Running integration tests"
+echo "[INFO] Run tests"
 if pipenv run python test_docker.py; then
-    echo "[INFO] Tests passed. Shutting down containers."
-    docker-compose down
+  docker compose -f "$COMPOSE_FILE" down
 else
-    echo "[ERROR] Tests failed. Showing logs..."
-    docker-compose -f ../docker-compose.api.yaml logs
-    docker-compose -f ../docker-compose.api.yaml down
-    exit 1
+  docker compose -f "$COMPOSE_FILE" logs --no-color
+  docker compose -f "$COMPOSE_FILE" down
+  exit 1
 fi

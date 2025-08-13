@@ -5,7 +5,7 @@ import requests
 json_data ={
     "open": 170.0,
         "high": 150.0,
-        "low": 160.0,   # invalid, low cannot be greater than high
+        "low": 16.0,   # invalid, low cannot be greater than high
         "volume": 15000000,
         "rolling_avg_5": 171.2,
         "rolling_std_5": 1.3,
@@ -18,5 +18,6 @@ json_data ={
 url = 'http://127.0.0.1:8000/predict'
 response = requests.post(url,json=json_data, verify=False, timeout=10)
 
-
+print(f"Response status code: {response.status_code}")
+print(f"Response content: {response.content}")
 assert 1==1
