@@ -20,6 +20,11 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        
+      - name: Create .env file from GitHub Secrets
+        run: |
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "DEPLOY_KEY_PUB=${{ secrets.DEPLOY_KEY_PUB }}" >> .env
 
       - name: Terraform Init
         working-directory: 'terraform'
