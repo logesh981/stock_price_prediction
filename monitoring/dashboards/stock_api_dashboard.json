@@ -1,0 +1,35 @@
+{
+  "title": "Stock API - Model Monitoring",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Predictions (OK)",
+      "targets": [{ "expr": "sum(increase(stock_predictions_total{status=\"ok\"}[5m]))" }],
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 }
+    },
+    {
+      "type": "stat",
+      "title": "Predictions (Errors)",
+      "targets": [{ "expr": "sum(increase(stock_predictions_total{status=\"error\"}[5m]))" }],
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Latency (p50/90/99)",
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(stock_prediction_latency_seconds_bucket[5m])) by (le))" },
+        { "expr": "histogram_quantile(0.90, sum(rate(stock_prediction_latency_seconds_bucket[5m])) by (le))" },
+        { "expr": "histogram_quantile(0.99, sum(rate(stock_prediction_latency_seconds_bucket[5m])) by (le))" }
+      ],
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Predicted Price Distribution (rate)",
+      "targets": [{ "expr": "sum(rate(stock_prediction_value_bucket[5m])) by (le)" }],
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 }
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}
